@@ -1,3 +1,11 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Project Demo
+
+Here is a short video of demo - - > [Demo](https://youtu.be/-QUb9phxb1E)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 # Backend: synthesizer implementation in Juce
 
 The plugin originally contained two main classes, the `PluginProcessor`, which handles audio and MIDI I/O and processing logic, and the `PluginEditor`, which handles GUI controls. With the reference to the Processor, the Editor can access and edit information and parameters from the audio thread, not the way around.
