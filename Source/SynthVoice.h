@@ -23,32 +23,17 @@ class SynthVoice : public juce::SynthesiserVoice
         return dynamic_cast<SynthSound*>(sound) != nullptr;
     }
     
-    //==========================================================
-
-    void getEnvParam(float* attack, float* release, float* sustain, float* decay)
-    {
-        env1.setAttack(double(*attack));
-        env1.setRelease(double(*release));
-        env1.setDecay(*decay);
-        env1.setSustain(*sustain);
-    }
-    //==========================================================
-
-    double setEnvelope()
-    {
-        return env1.adsr(setOscType(), env1.trigger);
-    }
 
     //==========================================================
 
-    void getOscType(float* selection)
+    void setOscType(float* selection)
     {
         theWave = *selection;
     }
 
     //==========================================================
 
-    double setOscType()
+    double getOscType()
     {
         double waveSample;
 
@@ -76,17 +61,30 @@ class SynthVoice : public juce::SynthesiserVoice
     }
     //==========================================================
 
-    void getFilParam(float* filterCutoff, float* filterRes)
+    void setEnvParam(float* attack, float* release, float* sustain, float* decay)
+    {
+        env1.setAttack(double(*attack));
+        env1.setRelease(double(*release));
+        env1.setDecay(double(*decay));
+        env1.setSustain(double(*sustain));
+    }
+    //==========================================================
+
+    double getEnvelope()
+    {
+        return env1.adsr(getOscType(), env1.trigger);
+    }
+    void setFilParam(float* filterCutoff, float* filterRes)
     {
         cutoff = *filterCutoff;
         resonance = *filterRes;
     }
     //==========================================================
 
-    double setFilter()
-    {
-        return filter1.lores(setEnvelope(), 100, 0.1);
-    }
+    //double setFilter()
+    //{
+    //    return filter1.lores(setEnvelope(), 100, 0.1);
+    //}
     //==========================================================
 
     void startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
@@ -94,8 +92,7 @@ class SynthVoice : public juce::SynthesiserVoice
         env1.trigger = 1;
         level = velocity;
         frequency = juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber);
-        std::cout << midiNoteNumber << std::endl;
-         
+     
     }
     
     //==========================================================
@@ -127,15 +124,12 @@ class SynthVoice : public juce::SynthesiserVoice
     
     void renderNextBlock(juce::AudioBuffer<float> &outputBuffer, int startSample, int numSample)
     {
-        env1.setDecay(500);
-        env1.setSustain(0.8);
-
         for (int sample = 0; sample < numSample; ++sample)
         {
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
             {
 
-                outputBuffer.addSample(channel, startSample, setFilter());
+                outputBuffer.addSample(channel, startSample, 0.5 * getEnvelope());
             }
             ++startSample;
         }
@@ -151,5 +145,4 @@ private:
     float resonance;
     maxiOsc osc1;
     maxiEnv env1;
-    maxiFilter filter1;
 };

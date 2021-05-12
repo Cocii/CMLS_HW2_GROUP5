@@ -199,10 +199,9 @@ void CMLS_HW2_GROUP5AudioProcessor::processBlock (juce::AudioBuffer<float>& buff
             float* newOscType = (float*)tree.getRawParameterValue("wavetype");
             float* newFilterCutoff = (float*)tree.getRawParameterValue("filterCutoff");
             float* newFilterRes = (float*)tree.getRawParameterValue("filterRes");
-
-            myVoice->getEnvParam(newAttack, newRelease,newSustain, newDecay);
-            myVoice->getOscType(newOscType);
-            myVoice->getFilParam(newFilterCutoff, newFilterRes);
+            myVoice->setOscType(newOscType);
+            myVoice->setEnvParam(newAttack, newRelease,newSustain, newDecay);
+            myVoice->setFilParam(newFilterCutoff, newFilterRes);
             //float* newFloatPtrAttack = (float*)tree.getRawParameterValue("attack");
             //float* newFloatPtrRelease = (float*)tree.getRawParameterValue("release");
             //float* newFloatPtrSustain = (float*)tree.getRawParameterValue("sustain");
