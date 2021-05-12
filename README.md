@@ -51,7 +51,7 @@ oscillator in a synthetizer. The oscillator has two main functions, **setOscilla
 
 For the UI of the Oscillator, we used the ComboBox class, that we basically needed for the waveform selection, and sliders, that will be used also in the `Filter` component. To interact with the oscillator, the user can see basically the waveform label(Sine, Square, Saw); We also used a *ValueTreeState* variable for the WaveSelector, that links the parameters set by the interacting user with the ComboBox class. The same variable is used also on filters, and basically does the same thing, connecting the \"graphical\" value given by the user to the actual controller value of the filter. Other methods in Oscillator interface are used to show and display filters, fundamental in oscillators' audio processing, with the possibility given to the user of making them rotating, for example. To make filters visible to the user in the GUI, we used the *addAndMakeVisible* method.
 
-![The GUI of our synth](images/PluginGUI.jpg){width=".9\\linewidth"}
+![The GUI of our synth](images/PluginGUI.jpg)
 
 # The Filter section and its UI implementation
 
